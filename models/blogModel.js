@@ -14,6 +14,11 @@ const blogSchema = new mongoose.Schema(
       type: String,
       required: [true, "Image is required"],
     },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      require: [true, "User id is required"],
+    },
   },
   { timestamps: true }
 );
