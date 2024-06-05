@@ -19,9 +19,11 @@ connectDB();
 
 // Import routes
 const userRoutes = require("./routes/userRoutes");
+const blogRoutes = require("./routes/blogRoutes");
 
 // Use routes
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/blogs", blogRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json({
