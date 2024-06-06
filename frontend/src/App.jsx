@@ -8,6 +8,7 @@ import Register from "./pages/Register";
 function App() {
   return (
     <Router>
+      {/* Header should be rendered inside the Router */}
       <Header />
       <Routes>
         <Route path="/" element={<Blogs />} />
