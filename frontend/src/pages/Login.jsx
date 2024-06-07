@@ -32,13 +32,15 @@ const Login = () => {
         }
       );
 
-      console.log(data); // Debugging: Log the response data
+      console.log("Response data:", data); // Debugging: Log the entire response data
+
       if (data.success) {
-        if (data.user && data.user._id) {
-          localStorage.setItem("userId", data.user._id);
+        console.log("Login success:", data.success); // Debugging: Log the success status
+        if (data.user && data.user.id) {
+          console.log("User data:", data.user); // Debugging: Log the user data
+          localStorage.setItem("userId", data.user.id);
           dispatch(authActions.login());
           toast.success("User login successfully");
-          alert("Login successful!"); // Add this line for the alert
 
           // Ensure navigate is called after state updates
           setTimeout(() => {
@@ -46,13 +48,15 @@ const Login = () => {
             navigate("/");
           }, 0); // Setting a timeout to ensure state updates complete
         } else {
+          console.error("User data is missing in the response:", data); // Debugging: Log the entire response if user data is missing
           toast.error("Login failed: User data is missing in the response.");
         }
       } else {
+        console.error("Login failed with message:", data.message); // Debugging: Log the failure message
         toast.error("Login failed: " + data.message);
       }
     } catch (error) {
-      console.error(error);
+      console.error("Error occurred during login:", error); // Debugging: Log the error
       toast.error("An error occurred. Please try again.");
     }
   };

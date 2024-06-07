@@ -54,6 +54,7 @@ exports.getAllUsers = async (req, res) => {
     });
   }
 };
+
 exports.loginController = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -64,6 +65,7 @@ exports.loginController = async (req, res) => {
         success: false,
       });
     }
+
     const user = await userModel.findOne({ email });
     if (!user) {
       return res.status(400).send({
@@ -79,14 +81,22 @@ exports.loginController = async (req, res) => {
         success: false,
       });
     }
+
+    // If login is successful, include user data in the response
     return res.status(200).send({
       message: "Login successful",
       success: true,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        // Add other user data fields as needed
+      },
     });
   } catch (error) {
     console.log(error);
     return res.status(500).send({
-      message: "error in getting user",
+      message: "Error in getting user",
       success: false,
       error: error.message,
     });
